@@ -1,0 +1,21 @@
+.btn-toolbar button {
+  margin-left: 5px;
+}
+.btn-toolbar button:first-child {
+  margin-left: 0;
+}
+.btn-toolbar button:hover,
+.btn-toolbar button.active {
+  background: #343a40;
+  color: #fff;
+}
+
+.loading {
+  animation: loading-spin infinite 5s linear;
+  height: 60px;
+}
+
+@keyframes loading-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

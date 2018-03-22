@@ -1,0 +1,37 @@
+[
+  {
+    "id": 0,
+    "title": "Online sales surge boosts Zara owner Inditex",
+    "date": "15.03.2018 15:29",
+    "tags": ["Business"],
+    "body": "A 41% jump in online sales for the owner of Zara helped drive higher sales and profits last year."
+  },
+  {
+    "id": 1,
+    "title": "Reddit holds the secret to fixing Facebook",
+    "date": "15.03.2018 12:44",
+    "tags": ["Tehnology"],
+    "body": "South by Southwest Interactive is a festival that used to have a reputation as the place to create a buzz for a new social network or product."
+  },
+  {
+    "id": 2,
+    "title": "'Loneliest tree' records human epoch",
+    "date": "15.03.2018 04:53",
+    "tags": ["Science"],
+    "body": "It’s been dubbed 'the loneliest tree on the planet' because of its remote location, but the Sitka spruce might represent something quite profound about the age in which we live."
+  },
+  {
+    "id": 3,
+    "title": "Stephen Hawking's warnings",
+    "date": "14.03.2018 20:30",
+    "tags": ["Science"],
+    "body": "Stephen Hawking's fame was founded on the research he did on general relativity and black holes. But he often stepped outside his own field of research, using his recognition to highlight what he saw as the great challenges and existential threats for humanity in coming decades. His pronouncements drove headlines in the media, which sometimes proved controversial."
+  },
+  {
+    "id": 4,
+    "title": "3D-printed homes turn sludge into shelter",
+    "date": "14.03.2018 18:02",
+    "tags": ["Science", "Tehnology"],
+    "body": "Like small-scale 3D-printing, the system works by slowly adding material, layer-by-layer. In this case, that material is mortar, similar to concrete. The height and width of the house is constrained by size of an an enormous metal frame, which operates autonomously once given its instructions."
+  }
+]
