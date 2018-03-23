@@ -15,7 +15,6 @@ class App extends Component {
           <Route exact path={constants.URL_ALL_NEWS} component={AllNews}/>
           <Route exact path={`${constants.URL_ALL_NEWS}/:pageId`} component={News}/>
         </Switch>
-
       </PageTemplate>
     );
   }

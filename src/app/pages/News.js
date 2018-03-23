@@ -26,7 +26,7 @@ class News extends React.Component {
             <div className="container">
               <h1>{this.state.news.title}</h1>
               <p className="lead">{this.state.news.body}</p>
-              <TagList tags={this.state.news.tags} selectedTag={null} onClick={() => {return false;}} />
+              <TagList tags={this.state.news.tags} />
             </div>
           </div>
         </div>
