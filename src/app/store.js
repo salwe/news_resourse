@@ -1,6 +1,6 @@
 import { createStore } from "redux";
 
-import { newsList  } from "./reducers/newsList";
+import { rootReducers  } from "./reducers/index";
 
 
-export const store = createStore(newsList );
+export const store = createStore(rootReducers);

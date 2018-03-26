@@ -1,32 +1,15 @@
-import { ADD_NEWS, REMOVE_NEWS, SELECT_TAG } from "../actions/newsActions";
-import { TAG_ALL } from '../constants';
+import { ADD_ALL_NEWS, ADD_NEWS } from "../actions/index";
 
-const initialState = {
-  selectedTag: TAG_ALL,
-  newsList: [],
-}
-
-export const newsList = (state = initialState, action) => {
+export const newsList = (state = [], action) => {
   switch (action.type) {
+    case ADD_ALL_NEWS:
+      return [ ...action.newsList ];
+
     case ADD_NEWS:
-      //console.log(state);
-      return {
-        selectedTag: TAG_ALL,
-        newsList: [...state.newsList,
+      return [ ...state.newsList,
         {
-          id: action.id,
-          ...action.data
-        }],
-      };
-
-    case REMOVE_NEWS:
-      return state.newsList.filter(news => news.id !== action.id);
-
-    case SELECT_TAG:
-      return {
-        selectedTag: action.tag,
-        newsList: [...state.newsList],
-      };
+          ...action.news
+        }];
 
     default:
       return state;

@@ -5,65 +5,44 @@ import NewsList from '../components/NewsList';
 import { PreLoader } from '../components/PreLoader';
 import { TAG_ALL } from '../constants';
 import { dataAPI } from '../LoadData';
-import { addNews } from '../actions/newsActions';
-import { connect } from 'react-redux';
 
 class AllNews extends React.Component {
   state = {
     tagsArr: [],
-    isWaiting: true,
+    isLoaded: (this.props.newsList.length > 0),
   };
 
   componentDidMount() {
-    dataAPI.getAllNews().then(res => {
+    if (!this.state.isLoaded) {
+      dataAPI.getAllNews().then(news => {
+        this.props.addAllNews(news);
+        this.props.addAllTags(_.uniq([].concat([TAG_ALL], ..._.map(news, 'tags'))));
 
-      res.forEach(news => this.props.addNews({ ...news }));
-
-      this.setState({
-        tagsArr: _.uniq([].concat([TAG_ALL], ..._.map(res, 'tags'))),
-        isWaiting: false,
+        this.setState({
+          isLoaded: true,
+        });
       });
-    });
+    }
   }
 
-  // selectTag = (tag) => {
-  //   this.props.selectTag(tag);
-  //   // this.setState({
-  //   //   selectedTag: tag,
-  //   // });
-  // }
+  selectTag = (tag) => {
+    this.props.selectTag(tag);
+  }
 
   getFilteredNews() {
-    return (this.props.selectedTag === TAG_ALL) ? this.props.newsList : this.props.newsList.filter(news => news.tags.includes(this.props.selectedTag));
+    const { newsList, tagsInfo } = this.props;
+    return (tagsInfo.selectedTag === TAG_ALL) ? newsList : newsList.filter(news => news.tags.includes(tagsInfo.selectedTag));
   }
 
   render() {
     return (
       <div>
-        <PreLoader isShowen={this.state.isWaiting} />
-        
-        <TagList tags={this.state.tagsArr} />
+        <PreLoader isShown={!this.state.isLoaded} />
+        <TagList tags={this.props.tagsInfo.tagsList} selectedTag={this.props.tagsInfo.selectedTag} onClick={this.selectTag} />
         <NewsList newsList={this.getFilteredNews()} />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    selectedTag: state.selectedTag,
-    newsList: state.newsList,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addNews: (id) => {
-      dispatch(addNews(id));
-    },
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AllNews);
-
-//export default AllNews;
+export default AllNews;
