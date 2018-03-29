@@ -6,7 +6,7 @@ class DataAPI {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(newsArr);
-      }, 1000)
+      }, 700)
     });
   }
 
