@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { Switch, Route } from "react-router-dom";
 import { PageTemplate } from './pages/PageTemplate';
 import { Home } from './pages/Home';
-//import AllNews from './pages/AllNews';
-//import News from './pages/News';
-import AllNews from './containers/AllNews';
-import News from './containers/News';
+import AllNews from './pages/AllNews';
+import News from './pages/News';
 import * as constants from './constants';
 
 class App extends Component {

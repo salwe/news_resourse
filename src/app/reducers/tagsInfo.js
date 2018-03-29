@@ -1,23 +1,31 @@
-import { ADD_ALL_TAGS, SELECT_TAG } from "../actions/index";
+import { GET_TAGS_REQUEST, GET_TAGS_SUCCESS, SELECT_TAG } from "../actions/index";
 import { TAG_ALL } from '../constants';
 
 const initialState = {
   selectedTag: TAG_ALL,
   tagsList: [],
+  isFetched: false,
 };
 
 export const tagsInfo = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_ALL_TAGS:
+    case GET_TAGS_REQUEST:
       return {
-        selectedTag: state.selectedTag,
+        ...state,
+        isFetched: false,
+      };
+
+    case GET_TAGS_SUCCESS:
+      return {
+        ...state,
         tagsList: [...action.tagsList],
+        isFetched: true,
       };
 
     case SELECT_TAG:
       return {
+        ...state,
         selectedTag: action.tag,
-        tagsList: state.tagsList,
       };
 
   default:

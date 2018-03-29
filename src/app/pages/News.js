@@ -1,20 +1,18 @@
 import React from 'react';
-import _ from 'lodash';
-import { dataAPI } from '../LoadData';
+import { find } from 'lodash';
+import { connect } from 'react-redux';
+import dataAPI from '../LoadData';
 import { PreLoader } from '../components/PreLoader';
 
 class News extends React.Component {
-  newsFromStore = this.getNewsFromStore();
-
   state = {
-    news: this.newsFromStore,
-    isLoaded: Boolean(this.newsFromStore),
+    news: this.getNewsFromProps() || null,
+    isLoaded: this.props.isNewsFetched,
   }
 
   componentDidMount() {
     if (!this.state.isLoaded) {
       dataAPI.getNewsById(this.props.match.params.pageId).then(news => {
-
         this.setState({
           news,
           isLoaded: true,
@@ -23,22 +21,20 @@ class News extends React.Component {
     }
   }
 
-  getNewsFromStore() {
+  getNewsFromProps() {
     const newsId = parseInt(this.props.match.params.pageId, 10);
-
-    return _.find(this.props.newsList, news => news.id === newsId);
+    
+    return find(this.props.newsList, news => news.id === newsId);
   }
 
   getNewsJSX() {
-    const news = this.state.news;
-    
     return (
       <div className="container">
         <div className="row">
           <div className="jumbotron jumbotron-fluid rounded col-12 my-3">
             <div className="container">
-              <h1>{news.title}</h1>
-              <p className="lead">{news.body}</p>
+              <h1>{this.state.news.title}</h1>
+              <p className="lead">{this.state.news.body}</p>
             </div>
           </div>
         </div>
@@ -56,4 +52,11 @@ class News extends React.Component {
   }
 }
 
-export default News;
+const mapStateToProps = (state) => {
+  return {
+    newsList: state.newsInfo.newsList,
+    isNewsFetched: state.newsInfo.isFetched,
+  };
+};
+
+export default connect(mapStateToProps)(News);

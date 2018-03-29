@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { newsList } from './newsList';
+import { newsInfo } from './newsInfo';
 import { tagsInfo } from './tagsInfo';
  
 export const rootReducers = combineReducers({
-  newsList,
+  newsInfo,
   tagsInfo,
 });
