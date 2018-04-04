@@ -1,22 +1,22 @@
-import { GET_NEWS_REQUEST, GET_NEWS_SUCCESS } from "../actions/index";
+import { LOAD_ALL_NEWS_REQUEST, LOAD_ALL_NEWS_SUCCESS } from "../actions/newsActions";
 
 const initialState = {
   newsList: [],
   isFetched: false,
 };
 
-export const newsInfo = (state = initialState, action) => {
+export const newsListInfo = (state = initialState, action) => {
   switch (action.type) {
-    case GET_NEWS_REQUEST:
+    case LOAD_ALL_NEWS_REQUEST:
       return {
         ...state,
         isFetched: false,
       };
 
-    case GET_NEWS_SUCCESS:
+    case LOAD_ALL_NEWS_SUCCESS:
       return {
         ...state,
-        newsList: [...action.newsList],
+        newsList: [...action.payload],
         isFetched: true,
       };
 

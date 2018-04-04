@@ -1,40 +1,34 @@
 import React from 'react';
 import { find } from 'lodash';
 import { connect } from 'react-redux';
-import dataAPI from '../LoadData';
 import { PreLoader } from '../components/PreLoader';
+import * as actions from '../actions/newsActions';
 
 class News extends React.Component {
-  state = {
-    news: this.getNewsFromProps() || null,
-    isLoaded: this.props.isNewsFetched,
-  }
-
   componentDidMount() {
-    if (!this.state.isLoaded) {
-      dataAPI.getNewsById(this.props.match.params.pageId).then(news => {
-        this.setState({
-          news,
-          isLoaded: true,
-        });
-      });
+    if (this.props.isNewsListFetched) {
+      this.props.setActiveNews(this.props.newsFromStore);
+    }
+    else {
+      const newsId = parseInt(this.props.match.params.pageId, 10);
+      this.props.loadNewsById(newsId);
     }
   }
 
-  getNewsFromProps() {
-    const newsId = parseInt(this.props.match.params.pageId, 10);
-    
-    return find(this.props.newsList, news => news.id === newsId);
-  }
+  // componentWillUnmount() {
+  //   this.props.setActiveNews(null);
+  // }
 
   getNewsJSX() {
+    const news = this.props.activeNewsInfo.activeNews;
+
     return (
       <div className="container">
         <div className="row">
           <div className="jumbotron jumbotron-fluid rounded col-12 my-3">
             <div className="container">
-              <h1>{this.state.news.title}</h1>
-              <p className="lead">{this.state.news.body}</p>
+              <h1>{news.title}</h1>
+              <p className="lead">{news.body}</p>
             </div>
           </div>
         </div>
@@ -43,20 +37,26 @@ class News extends React.Component {
   }
 
   render() {
+    const isLoaded = this.props.activeNewsInfo.isFetched;
+
     return (
       <div>
-        <PreLoader isShown={!this.state.isLoaded}/>
-        {this.state.isLoaded && this.getNewsJSX()}
+        <PreLoader isShown={!isLoaded}/>
+        {isLoaded && this.getNewsJSX()}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+  const newsId = parseInt(ownProps.match.params.pageId, 10);
+  const newsFromStore = find(state.newsListInfo.newsList, news => news.id === newsId);
+
   return {
-    newsList: state.newsInfo.newsList,
-    isNewsFetched: state.newsInfo.isFetched,
+    newsFromStore,
+    isNewsListFetched: state.newsListInfo.isFetched,
+    activeNewsInfo: state.activeNewsInfo,
   };
 };
 
-export default connect(mapStateToProps)(News);
+export default connect(mapStateToProps, actions)(News);
