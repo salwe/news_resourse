@@ -1,13 +1,14 @@
 import React from 'react';
 import { find } from 'lodash';
-import { connect } from 'react-redux';
+import { observer } from "mobx-react";
+import newsStore from '../stores/newsStore';
 import dataAPI from '../LoadData';
 import { PreLoader } from '../components/PreLoader';
 
-class News extends React.Component {
+@observer class News extends React.Component {
   state = {
     news: this.getNewsFromProps() || null,
-    isLoaded: this.props.isNewsFetched,
+    isLoaded: newsStore.isFetched,
   }
 
   componentDidMount() {
@@ -24,17 +25,19 @@ class News extends React.Component {
   getNewsFromProps() {
     const newsId = parseInt(this.props.match.params.pageId, 10);
     
-    return find(this.props.newsList, news => news.id === newsId);
+    return find(newsStore.newsList, news => news.id === newsId);
   }
 
   getNewsJSX() {
+    const { news } = this.state;
+
     return (
       <div className="container">
         <div className="row">
           <div className="jumbotron jumbotron-fluid rounded col-12 my-3">
             <div className="container">
-              <h1>{this.state.news.title}</h1>
-              <p className="lead">{this.state.news.body}</p>
+              <h1>{news.title}</h1>
+              <p className="lead">{news.body}</p>
             </div>
           </div>
         </div>
@@ -52,11 +55,4 @@ class News extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    newsList: state.newsInfo.newsList,
-    isNewsFetched: state.newsInfo.isFetched,
-  };
-};
-
-export default connect(mapStateToProps)(News);
+export default News;
