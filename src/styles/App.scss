@@ -1,13 +1,16 @@
 .btn-toolbar button {
   margin-left: 5px;
+  &:first-child {
+    margin-left: 0;
+  }
 }
-.btn-toolbar button:first-child {
-  margin-left: 0;
-}
-.btn-toolbar button:hover,
-.btn-toolbar button.active {
-  background: #343a40;
-  color: #fff;
+
+.btn-toolbar button {
+  &:hover,
+  &.active {
+    background: #343a40;
+    color: #fff;
+  }
 }
 
 .loading {
