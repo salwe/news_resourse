@@ -4,17 +4,13 @@ import TagList from '../components/TagList';
 import NewsList from '../components/NewsList';
 import { PreLoader } from '../components/PreLoader';
 import { TAG_ALL } from '../constants';
-import actions from '../actions';
+import { loadAllNewsIfNeed } from '../actions/newsActions';
+import { loadTagsIfNeed, selectTag } from '../actions/tagsActions';
 
 class AllNews extends React.Component {
   componentDidMount() {
-    if (!this.props.newsInfo.isFetched) {
-      this.props.loadAllNews();
-    }
-
-    if (!this.props.tagsInfo.isFetched) {
-      this.props.loadTags();
-    }
+    this.props.loadAllNewsIfNeed();
+    this.props.loadTagsIfNeed();
   }
 
   selectTag = (tag) => {
@@ -48,4 +44,20 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, actions)(AllNews);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadAllNewsIfNeed: () => {
+      dispatch(loadAllNewsIfNeed());
+    },
+
+    loadTagsIfNeed: () => {
+      dispatch(loadTagsIfNeed());
+    },
+
+    selectTag: (tag) => {
+      dispatch(selectTag(tag));
+    },
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllNews);

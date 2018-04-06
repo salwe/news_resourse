@@ -4,30 +4,32 @@ import { TAG_ALL } from '../constants';
 
 export const LOAD_TAGS_REQUEST = "LOAD_TAGS_REQUEST";
 export const LOAD_TAGS_SUCCESS = "LOAD_TAGS_SUCCESS";
-export const LOAD_TAGS_ERROR = "LOAD_TAGS_ERROR";
+export const LOAD_TAGS_FAILURE = "LOAD_TAGS_FAILURE";
 export const SELECT_TAG = "SELECT_TAG";
 
-export function loadTags() {
-  return (dispatch) => {
+export function loadTagsIfNeed() {
+  return (dispatch, getState) => {
+    const { isFetched } = getState().newsListInfo;
+    if (isFetched) {
+      return;
+    }
+
     dispatch({
       type: LOAD_TAGS_REQUEST,
     });
 
-    dataAPI.getAllNews()
-      .then(news => {
-        dispatch({
-          type: LOAD_TAGS_SUCCESS,
-          payload: uniq([].concat([TAG_ALL], ...map(news, 'tags'))),
-        })
+    return dataAPI.getAllNews().then(news => {
+      dispatch({
+        type: LOAD_TAGS_SUCCESS,
+        payload: uniq([].concat([TAG_ALL], ...map(news, 'tags'))),
       })
-      .catch(error => {
-        dispatch({
-          type: LOAD_TAGS_ERROR,
-          payload: error,
-          error: true,
-        });
-      })
-    ;
+    }).catch(error => {
+      dispatch({
+        type: LOAD_TAGS_FAILURE,
+        payload: error,
+        error: true,
+      });
+    });
   }
 }
 

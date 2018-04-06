@@ -1,23 +1,13 @@
 import React from 'react';
-import { find } from 'lodash';
 import { connect } from 'react-redux';
 import { PreLoader } from '../components/PreLoader';
-import * as actions from '../actions/newsActions';
+import { loadNewsById } from '../actions/newsActions';
 
 class News extends React.Component {
   componentDidMount() {
-    if (this.props.isNewsListFetched) {
-      this.props.setActiveNews(this.props.newsFromStore);
-    }
-    else {
-      const newsId = parseInt(this.props.match.params.pageId, 10);
-      this.props.loadNewsById(newsId);
-    }
+    const newsId = parseInt(this.props.match.params.pageId, 10);
+    this.props.loadNewsById(newsId);
   }
-
-  // componentWillUnmount() {
-  //   this.props.setActiveNews(null);
-  // }
 
   getNewsJSX() {
     const news = this.props.activeNewsInfo.activeNews;
@@ -48,15 +38,19 @@ class News extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const newsId = parseInt(ownProps.match.params.pageId, 10);
-  const newsFromStore = find(state.newsListInfo.newsList, news => news.id === newsId);
-
+const mapStateToProps = (state) => {
   return {
-    newsFromStore,
     isNewsListFetched: state.newsListInfo.isFetched,
     activeNewsInfo: state.activeNewsInfo,
   };
 };
 
-export default connect(mapStateToProps, actions)(News);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadNewsById: (newsId) => {
+      dispatch(loadNewsById(newsId));
+    },
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(News);
