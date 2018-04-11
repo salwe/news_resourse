@@ -1,5 +1,5 @@
-import { LOAD_TAGS_REQUEST, LOAD_TAGS_SUCCESS, SELECT_TAG } from "../actions/tagsActions";
-import { TAG_ALL } from '../constants';
+import { LOAD_TAGS_REQUEST, LOAD_TAGS_SUCCESS, SELECT_TAG } from "../constants/actions";
+import { TAG_ALL } from '../constants/tags';
 
 const initialState = {
   selectedTag: TAG_ALL,

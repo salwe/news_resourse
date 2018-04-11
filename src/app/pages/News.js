@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { PreLoader } from '../components/PreLoader';
-import { loadNewsById } from '../actions/newsActions';
+import { fetchNewsByID } from '../actions/newsActions';
 
 class News extends React.Component {
   componentDidMount() {
     const newsId = parseInt(this.props.match.params.pageId, 10);
-    this.props.loadNewsById(newsId);
+    this.props.fetchNewsByID(newsId);
   }
 
   getNewsJSX() {
@@ -47,8 +47,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadNewsById: (newsId) => {
-      dispatch(loadNewsById(newsId));
+    fetchNewsByID: (newsId) => {
+      dispatch(fetchNewsByID(newsId));
     },
   }
 };

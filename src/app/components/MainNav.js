@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { URL_ALL_NEWS, URL_HOME } from '../constants';
+import { URL_ALL_NEWS, URL_HOME } from '../constants/urls';
 
 export const MainNav = (props) => {
 	return (

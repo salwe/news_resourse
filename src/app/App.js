@@ -4,7 +4,7 @@ import { PageTemplate } from './pages/PageTemplate';
 import { Home } from './pages/Home';
 import AllNews from './pages/AllNews';
 import News from './pages/News';
-import * as constants from './constants';
+import * as constants from './constants/urls';
 
 class App extends Component {
   render() {    

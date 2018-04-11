@@ -1,4 +1,4 @@
-import { LOAD_NEWS_REQUEST, LOAD_NEWS_SUCCESS, SET_ACTIVE_NEWS } from "../actions/newsActions";
+import { LOAD_NEWS_REQUEST, LOAD_NEWS_SUCCESS, SET_ACTIVE_NEWS } from "../constants/actions";
 
 const initialState = {
   activeNews: null,

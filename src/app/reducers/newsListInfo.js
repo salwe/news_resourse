@@ -1,4 +1,4 @@
-import { LOAD_ALL_NEWS_REQUEST, LOAD_ALL_NEWS_SUCCESS } from "../actions/newsActions";
+import { LOAD_ALL_NEWS_REQUEST, LOAD_ALL_NEWS_SUCCESS } from "../constants/actions";
 
 const initialState = {
   newsList: [],

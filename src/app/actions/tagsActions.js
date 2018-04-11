@@ -1,11 +1,12 @@
 import dataAPI from '../LoadData';
 import { uniq, map } from 'lodash';
-import { TAG_ALL } from '../constants';
-
-export const LOAD_TAGS_REQUEST = "LOAD_TAGS_REQUEST";
-export const LOAD_TAGS_SUCCESS = "LOAD_TAGS_SUCCESS";
-export const LOAD_TAGS_FAILURE = "LOAD_TAGS_FAILURE";
-export const SELECT_TAG = "SELECT_TAG";
+import { TAG_ALL } from '../constants/tags';
+import {
+  LOAD_TAGS_REQUEST,
+  LOAD_TAGS_SUCCESS,
+  LOAD_TAGS_FAILURE,
+  SELECT_TAG,
+} from '../constants/actions';
 
 export function loadTagsIfNeed() {
   return (dispatch, getState) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { URL_ALL_NEWS } from '../constants';
+import { URL_ALL_NEWS } from '../constants/urls';
 
 const NewsList = (props) => {
   const news = props.newsList.map((el) => 

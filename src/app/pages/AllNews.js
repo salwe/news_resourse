@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import TagList from '../components/TagList';
 import NewsList from '../components/NewsList';
 import { PreLoader } from '../components/PreLoader';
-import { TAG_ALL } from '../constants';
-import { loadAllNewsIfNeed } from '../actions/newsActions';
+import { TAG_ALL } from '../constants/tags';
+import { fetchAllNews } from '../actions/newsActions';
 import { loadTagsIfNeed, selectTag } from '../actions/tagsActions';
 
 class AllNews extends React.Component {
   componentDidMount() {
-    this.props.loadAllNewsIfNeed();
+    this.props.fetchAllNews();
     this.props.loadTagsIfNeed();
   }
 
@@ -46,8 +46,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadAllNewsIfNeed: () => {
-      dispatch(loadAllNewsIfNeed());
+    fetchAllNews: () => {
+      dispatch(fetchAllNews());
     },
 
     loadTagsIfNeed: () => {

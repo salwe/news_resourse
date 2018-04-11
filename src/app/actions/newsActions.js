@@ -1,15 +1,15 @@
 import dataAPI from '../LoadData';
 import { find } from 'lodash';
+import {
+  LOAD_ALL_NEWS_REQUEST,
+  LOAD_ALL_NEWS_SUCCESS,
+  LOAD_NEWS_REQUEST,
+  LOAD_NEWS_SUCCESS,
+  LOAD_NEWS_FAILURE,
+  SET_ACTIVE_NEWS,
+} from '../constants/actions';
 
-export const LOAD_ALL_NEWS_REQUEST = "LOAD_ALL_NEWS_REQUEST";
-export const LOAD_ALL_NEWS_SUCCESS = "LOAD_ALL_NEWS_SUCCESS";
-
-export const LOAD_NEWS_REQUEST = "LOAD_NEWS_REQUEST";
-export const LOAD_NEWS_SUCCESS = "LOAD_NEWS_SUCCESS";
-export const LOAD_NEWS_FAILURE = "LOAD_NEWS_FAILURE";
-export const SET_ACTIVE_NEWS = "SET_ACTIVE_NEWS";
-
-export function loadAllNewsIfNeed() {
+export function fetchAllNews() {
   return (dispatch, getState) => {
     const { isFetched } = getState().newsListInfo;
     
@@ -36,7 +36,7 @@ export function loadAllNewsIfNeed() {
   }
 }
 
-export function loadNewsById(newsId) {
+export function fetchNewsByID(newsId) {
   return (dispatch, getState) => {
     const { isFetched, newsList } = getState().newsListInfo;
 
